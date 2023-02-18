@@ -15,7 +15,7 @@ tre.setup(global_logger)
 logger = logging.getLogger("nextbox")
 
 CONTROL_TOKEN = environ["CONTROL_TOKEN"]
-WORKER_TOKENS = environ["WORKER_TOKENS"].split(",")
+WORKER_TOKENS = environ["WORKER_TOKENS"].split(" ")
 
 class ControlBot:
     def __init__(self) -> None:
