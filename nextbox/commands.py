@@ -12,7 +12,7 @@ BOT_OWNER_ID = environ["BOT_OWNER_ID"]
 
 class CapacityCommand(BaseCommand):
     def __init__(self) -> None:
-        super().__init__("capacity")
+        super().__init__("capacity", description="View the capacity of worker bots")
 
     async def run(self, control_bot: ControlBot, message: MessageCreateData, arguments: list[typing.Any]):
         del arguments
@@ -30,10 +30,14 @@ class CapacityCommand(BaseCommand):
 
 class CleanupCommand(BaseCommand):
     def __init__(self):
-        super().__init__("cleanup")
+        super().__init__("cleanup", description="Admin only - Delete all guilds")
 
     async def run(self, control_bot: ControlBot, message: MessageCreateData, arguments: list[typing.Any]):
         del arguments
+
+        if message["author"]["id"] != BOT_OWNER_ID:
+            await control_bot.http_client.create_message(control_bot.authentication, message["channel_id"], content="Sorry, not for you")
+            return
 
         for bot in control_bot.workers:
             await bot.cleanup_guilds(force=True)
@@ -42,7 +46,7 @@ class CleanupCommand(BaseCommand):
 
 class CreateCommand(BaseCommand):
     def __init__(self):
-        super().__init__("create")
+        super().__init__("create", description="Create a temporary server for tests")
 
     async def run(self, control_bot: ControlBot, message: MessageCreateData, arguments: list[typing.Any]):
         del arguments
@@ -56,4 +60,18 @@ class CreateCommand(BaseCommand):
             return
         invite = await worker.create_guild()
         await control_bot.http_client.create_message(control_bot.authentication, message["channel_id"], content=f"Created: {invite}")
-        
+
+
+class HelpCommand(BaseCommand):
+    def __init__(self):
+        super().__init__("help")
+
+    async def run(self, control_bot: ControlBot, message: MessageCreateData, arguments: list[typing.Any]):
+        del arguments
+        output = []
+
+        for command in control_bot.command_handler.commands.values():
+            output.append(f"**{control_bot.command_handler.prefix}{command.name}** {command.description or ''}")
+
+
+        await control_bot.http_client.create_message(control_bot.authentication, message["channel_id"], content="\n".join(output))

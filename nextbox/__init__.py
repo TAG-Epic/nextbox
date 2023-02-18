@@ -6,7 +6,7 @@ from .worker import WorkerBot
 import tre
 import logging
 from .command_handler import CommandHandler
-from .commands import CapacityCommand, CleanupCommand, CreateCommand
+from .commands import CapacityCommand, CleanupCommand, CreateCommand, HelpCommand
 
 global_logger = logging.getLogger()
 global_logger.setLevel(logging.DEBUG)
@@ -38,6 +38,7 @@ class ControlBot:
         self.command_handler.register(CapacityCommand())
         self.command_handler.register(CleanupCommand())
         self.command_handler.register(CreateCommand())
+        self.command_handler.register(HelpCommand())
         
         error = await self.shard_manager.dispatcher.wait_for(lambda: True, "critical")
         logging.critical(error[0])
