@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "nextbox"
+version = "0.1.0"
+description = ""
+authors = ["TAG-Epic <tagepicuwu@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+nextcore = {git = "https://github.com/nextsnake/nextcore"}
+tre = {path = "../tre"}
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
