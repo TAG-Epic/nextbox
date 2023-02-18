@@ -8,7 +8,7 @@ license = "MIT"
 [tool.poetry.dependencies]
 python = "^3.10"
 nextcore = {git = "https://github.com/nextsnake/nextcore"}
-tre = {path = "../tre"}
+tre = {git = "https://github.com/tag-epic/tre"}
 
 
 [build-system]
