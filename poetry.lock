@@ -702,8 +702,10 @@ develop = false
 colorama = "^0.4.6"
 
 [package.source]
-type = "directory"
-url = "../tre"
+type = "git"
+url = "https://github.com/tag-epic/tre"
+reference = "HEAD"
+resolved_reference = "234d31534add219e2313371b750f731e41ab16d3"
 
 [[package]]
 name = "types-frozendict"
@@ -820,4 +822,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "0484e21ccad345a52b4cbc3baf49596f288d984188bf26a3c0d780a130c9eae2"
+content-hash = "2c6244736499afb022080e1d092827e6d255c11ec919ed322f880c402e92eb97"
